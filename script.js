@@ -40,6 +40,7 @@ function displayPhotosFormAPI(photosArray) {
         
      
         const {links:{html},urls:{regular},alt_description} = photo;
+        console.log(html)
        
         //create images that have an image and div overlay
         const images = document.createElement("div");
@@ -59,8 +60,26 @@ function displayPhotosFormAPI(photosArray) {
         p.classList.add("image-desc");
         p.innerText = alt_description;
 
+        const info = document.createElement("div");
+        info.classList.add("info");
+
+        const iconLink = document.createElement("i");
+        // iconLink.classList.add("fa");
+        // iconLink.classList.add("fa-external-link");
+        // iconLink.setAttribute("aria-hidden",true);
+        iconLink.innerHTML = `<i class="fa fa-external-link" aria-hidden="true"></i>`
+        
+
+        const link = document.createElement("p");
+        link.classList.add("link");
+        link.innerText = "Hellooooo"
+
+        info.appendChild(iconLink);
+        info.appendChild(link)
+
         //append p to overlay div
         overlay.appendChild(p);
+        overlay.appendChild(info);
 
         //append img and overlay to images
         images.appendChild(img);
