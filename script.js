@@ -1,5 +1,7 @@
 const imageContainer = document.getElementById("image-container");
 const loader = document.getElementById("loader");
+const search = document.getElementById("search");
+const searchIcon = document.getElementById("search-icon")
 
 let photosArray = [];
 
@@ -7,10 +9,13 @@ let ready = false;
 let imagesLoaded = 0;
 let totalImages = 0;
 
+let queryString = "";
+
 // Unsplash API
 let imageCount = 5;
 const apiKey = config.apikey
-let apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${imageCount}&query=cars`
+const baseAPIURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${imageCount}`;
+let apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${imageCount}`
 
 //loaded image 
 function imageLoaded() {
@@ -60,26 +65,17 @@ function displayPhotosFormAPI(photosArray) {
         p.classList.add("image-desc");
         p.innerText = alt_description;
 
-        const info = document.createElement("div");
-        info.classList.add("info");
+        const linkToPhoto = document.createElement("a");
+        linkToPhoto.style.color = "white"
+        linkToPhoto.style.fontSize = "30px"
+        linkToPhoto.innerHTML = `<i class="fas fa-external-link-alt"></i>`
+        setAttributes(linkToPhoto,{"href":html,"title":"See On Unspalsh","target":"_blank"})
 
-        const iconLink = document.createElement("i");
-        // iconLink.classList.add("fa");
-        // iconLink.classList.add("fa-external-link");
-        // iconLink.setAttribute("aria-hidden",true);
-        iconLink.innerHTML = `<i class="fa fa-external-link" aria-hidden="true"></i>`
-        
-
-        const link = document.createElement("p");
-        link.classList.add("link");
-        link.innerText = "Hellooooo"
-
-        info.appendChild(iconLink);
-        info.appendChild(link)
 
         //append p to overlay div
         overlay.appendChild(p);
-        overlay.appendChild(info);
+        overlay.appendChild(linkToPhoto);
+       
 
         //append img and overlay to images
         images.appendChild(img);
@@ -107,6 +103,31 @@ window.addEventListener("scroll",() => {
        ready = false;
        getPhotos();
    }
+})
+
+function searchForPhoto() {
+    queryString =  search.value.split(" ")[0];
+    if(queryString) {
+        apiURL=baseAPIURL+"&query="+queryString;
+        console.log(apiURL);
+        getPhotos();
+
+    } else {
+        apiURL=baseAPIURL;
+        return;
+    }
+    search.value = "";
+}
+
+searchIcon.addEventListener("click",searchForPhoto);
+document.addEventListener("keypress",(e) => {
+    if(!search.value) {
+        return;
+    } else {
+        if(e.code === "Enter") {
+            searchForPhoto();
+        }
+    }
 })
 
 
