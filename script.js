@@ -40,7 +40,7 @@ function displayPhotosFormAPI(photosArray) {
     totalImages = photosArray.length;
     photosArray.forEach((photo) => {
 
-        // console.log(photo)
+        
 
         
      
@@ -109,7 +109,6 @@ function searchForPhoto() {
     queryString =  search.value.split(" ")[0];
     if(queryString) {
         apiURL=baseAPIURL+"&query="+queryString;
-        console.log(apiURL);
         getPhotos();
 
     } else {
