@@ -45,7 +45,7 @@ function displayPhotosFormAPI(photosArray) {
         
      
         const {links:{html},urls:{regular},alt_description} = photo;
-        console.log(html)
+       
        
         //create images that have an image and div overlay
         const images = document.createElement("div");
