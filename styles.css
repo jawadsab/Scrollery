@@ -182,4 +182,12 @@ h1 {
     .image-container {
         margin: 10px;
     }
+    #search {
+        width: 220px;
+    }
+    #search::placeholder {
+        letter-spacing: 1px;
+        font-size: 15px;
+    }
+    
 }
